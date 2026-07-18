@@ -21,6 +21,10 @@ even if they are only equal "up to taus".
 
 This file defines `eutt` (equivalence up-to tau), and proves
 that it is indeed an equivalence relation.
+
+## References
+
+* [*An equational theory for weak bisimulation (...) *][Zakowski2020]
 -/
 
 @[expose] public section
