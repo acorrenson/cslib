@@ -43,6 +43,18 @@ coinductive bisim {α : Type} : ωSequence α -> ωSequence α -> Prop where
 
 infixl:80 " ≃ω " => bisim
 
+theorem bisim.coind {α} (R : ωSequence α -> ωSequence α -> Prop) {s1 s2 : ωSequence α} :
+    R s1 s2 ->
+    (∀ s1 s2, R s1 s2 -> s1.head = s2.head ∧ R s1.tail s2.tail) ->
+    s1 ≃ω s2 := by
+  intros h1 h2
+  apply bisim.coinduct R
+  case x => grind
+  case hyp =>
+    intros s1 s2 hr
+    exists s1.head, s1.tail, s2.tail
+    grind
+
 theorem bisim_cons {α : Type} {x1 x2 : α} {s1 s2 : ωSequence α} :
     (x1 ::ω s1) ≃ω (x2 ::ω s2) -> x1 = x2 ∧ s1 ≃ω s2 := by
   intros heq
